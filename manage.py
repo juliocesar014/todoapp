@@ -23,18 +23,35 @@ if __name__ == '__main__':
     
     
 """
-medias = []
+questions = [
+    "Telefonou para a vítima?",
+    "Esteve no local do crime?",
+    "Mora perto da vítima?",
+    "Já trabalhou com a vítima?",
+    "Devia para a vítima?"
+]
 
-for i in range(10):
-    notas = []
-    for j in range(4):
-        nota = float(input(f'Digite a nota {j+1} do aluno {i+1}: '))
-        notas.append(nota)
-    media = sum(notas) / len(notas)
-    medias.append(media)
+answers = []
 
-alunos_aprovados = sum(1 for media in medias if media > 7)
+for question in questions:
+    response = input(question + " (sim ou não) ")
+    while response.lower() != "sim" and response.lower() != "não":
+        response = input("Por favor, responda com sim ou não: ")
+    answers.append(response.lower() == "sim")
 
-print(f'{alunos_aprovados} aluno(s) com médias maiores que 7.')
+def classify_person(answers):
+    num_positive = sum(answers)
+    if num_positive == 2:
+        return "Suspeito"
+    elif 3 <= num_positive <= 4:
+        return "Cúmplice"
+    elif num_positive == 5:
+        return "Assassino"
+    else:
+        return "Inocente"
+
+result = classify_person(answers)
+print("Esta pessoa é classificada como:", result)
+
 
 """
